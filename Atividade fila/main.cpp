@@ -82,7 +82,7 @@ public:
         }
         else
         {
-            while (this->tail != NULL)
+            while (this->head != NULL)
             {
                 this->dequeue();
             }
