@@ -11,7 +11,6 @@ class Queue
 private:
     int n;
     Node *head;
-    ;
     Node *tail;
 
 public:
@@ -23,6 +22,8 @@ public:
     }
     ~Queue()
     {
+        this->clear();
+        cout<<"Destruindo a fila. \n";
     }
     void enqueue(int x) // Enfileirar
     {
@@ -46,7 +47,6 @@ public:
         if (this->isEmpty())
         {
             cout << "A fila esta vazia\n";
-            ;
         }
         else
         {
@@ -94,7 +94,7 @@ public:
     {
         if (isEmpty())
         {
-            cout << "A fila esta vazia";
+            cout << "A fila esta vazia\n";
         }
         else
         {
@@ -133,12 +133,13 @@ int main()
         cout << "4-Retornar tamanho da fila\n";
         cout << "5-Verificar se esta vazio\n";
         cout << "6-Mostrar fila\n";
-        cout << "7-Retornar tamanho\n";
+        cout << "7-Retornar primeiro elemento\n";
         cout << "0-Sair";
         cout << "Qual opcao voce deseja?\n";
         cin >> opcao;
         switch (opcao)
         {
+
         case 1:
             cout << "Qual valor voce deseja inserir na fila\?";
             cin >> x;
@@ -163,14 +164,17 @@ int main()
             f.show();
             break;
         case 7:
-            f.size();
+            f.first();
             break;
         case 0:
             cout << "Encerrando...";
+            break;
         default:
             cout << "Opcao invalida\n";
+            break;
         }
         system("pause");
         system("cls");
     }
+    return 0;
 }
