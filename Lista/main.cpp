@@ -14,10 +14,15 @@ private:
     Node *head;
     Node *tail;
     int n;
-    Node *getNode(int pos){  //Função usada para obter um nó da lista pelo seu índice.
+
+    // Fun��o usada para obter um n� da lista
+    // pelo seu �ndice (0 .. n-1).
+    Node *getNode(int pos)
+    {
         int i = 0;
         Node *t = this->head;
-        while(i < pos){
+        while (i < pos)
+        {
             t = t->next;
             i++;
         }
@@ -36,6 +41,7 @@ public:
     // Detrutor
     ~List()
     {
+        this->clear();
     }
 
     // Inserir no in�cio
@@ -79,26 +85,29 @@ public:
     }
 
     // Insrir em uma posi��o
-    void pushAt(int item, int pos)
+    void push(int item, int pos)
     {
-        if(pos < 0 || pos>this->n)
+        if (pos < 0 || pos > this->n)
         {
-            cout<<"Erro:Posição invalida. \n";
+            cout << "Erro: indice invalido.\n";
             return;
         }
 
-        if(pos == 0)
-           this->pushFront(item);
+        if (pos == 0)
+        {
+            this->pushFront(item);
+        }
         else if (pos == n)
         {
             this->pushBack(item);
         }
-        else //Neste caso existe pelo menos 2 elementos na lista
-        {    //E não estou inserindo nem no inicio nem no fim.
+        else
+        { // Neste caso exitem pelo menos 2 elementos na lista
+          // e n�o estou inserindo nem no in�cio nem no fim
             Node *nn = new Node();
             nn->item = item;
 
-            //Posicionar o temporario na posição anterior.
+            // Posicionar um tempor�rio na posi��o anterior
             Node *t1 = this->getNode(pos - 1);
             Node *t2 = t1->next;
             t1->next = nn;
@@ -110,28 +119,30 @@ public:
     // Remover do in�cio
     int popFront()
     {
+
         if (this->isEmpty())
         {
-            cout << "Erro:Lista vazia\n";
+            cout << "Erro: Lista vazia.\n";
             return -1;
         }
         else
         {
             int item = this->head->item;
+
             if (this->n == 1)
             {
                 delete this->head;
                 this->head = NULL;
-                this->tail == NULL;
-                this->n--;
+                this->tail = NULL;
             }
             else
             {
                 Node *t = this->head;
                 this->head = this->head->next;
-                this->n--;
                 delete t;
             }
+            this->n--;
+            return item;
         }
     }
 
@@ -140,23 +151,22 @@ public:
     {
         if (this->isEmpty())
         {
-            cout << "Erro: A lista esta vazia";
+            cout << "Erro: Lista vazia.\n";
             return -1;
+        }
+        else if (this->n == 1)
+        {
+            return this->popFront();
         }
         else
         {
-            if (n == 1) 
-            {
-                delete this->head;
-                this->head = NULL;
-                this->tail == NULL;
-                this->n--;
-            }
-            else
-            {
-             
-
-            }
+            Node *t = this->getNode(this->n - 2);
+            int item = this->tail->item;
+            delete this->tail;
+            t->next = NULL;
+            this->tail = t;
+            this->n--;
+            return item;
         }
     }
 
@@ -195,16 +205,37 @@ public:
     // Apaga todos os elementos da lista
     void clear()
     {
+        while (!this->isEmpty())
+        {
+            this->popFront();
+        }
     }
 
-    // Mostra todos os elementos da lista
     void show()
     {
+        if (this->isEmpty())
+        {
+            cout << "Lista vazia." << endl;
+            return;
+        }
+        int n = 0;
+        for (Node *t = this->head; t != NULL; t = t->next)
+        {
+            cout << t->item << " Item na Posicao " << n << endl;
+            n++;
+        }
+        cout << endl;
     }
 };
 
 int main()
 {
+    List L;
+    L.pushFront(10);
+    L.show();
+
+    List *MyList = new List();
+    
     cout << "Hello world!" << endl;
     return 0;
 }
