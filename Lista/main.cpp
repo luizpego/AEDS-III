@@ -173,6 +173,29 @@ public:
     // Remover de uma posi��o
     int pop(int pos)
     {
+        int item = 0;
+        if (pos < 0 || pos > n)
+        {
+            cout << "Erro: Posição inválida";
+            return -1;
+        }
+        else if (pos == this->n)
+        {
+            this->popBack();
+        }
+        else if (pos == 0)
+        {
+            this->popFront();
+        }
+        else
+        {
+            Node *t1 = this->getNode(pos - 1); // t1 aponta para o posição desejada
+            Node *t2 = this->getNode(pos - 2); // t2 aponta para a posicao anterior
+            t2->next = t1->next;
+            item = t1->item;
+            delete t1;
+            cout << "O valor excluido e:" << item;
+        }
     }
 
     // Retorna o item do in�cio
@@ -235,7 +258,7 @@ int main()
     L.show();
 
     List *MyList = new List();
-    
+
     cout << "Hello world!" << endl;
     return 0;
 }
