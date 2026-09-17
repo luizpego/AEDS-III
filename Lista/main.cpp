@@ -35,6 +35,7 @@ public:
     // Construtor
     List()
     {
+        cout<<"A lista foi inicializada\n";
         this->head = NULL;
         this->tail = NULL;
         this->n = 0;
