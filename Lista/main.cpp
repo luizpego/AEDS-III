@@ -15,6 +15,8 @@ private:
     Node *tail;
     int n;
 
+    // Função usada para obter um nó da lista
+    // pelo seu índice (0 .. n-1).
     Node *getNode(int pos)
     {
         int i = 0;
@@ -30,6 +32,7 @@ private:
     }
 
 public:
+    // Construtor
     List()
     {
         this->head = NULL;
@@ -37,15 +40,16 @@ public:
         this->n = 0;
     }
 
+    // Destrutor
     ~List()
     {
         this->clear();
     }
 
+    // Inserir no início
     void pushFront(int item)
     {
         Node *t = new Node();
-
         t->item = item;
         t->next = NULL;
 
@@ -63,6 +67,7 @@ public:
         this->n++;
     }
 
+    // Inserir no final
     void pushBack(int item)
     {
         if (this->isEmpty())
@@ -72,7 +77,6 @@ public:
         else
         {
             Node *t = new Node();
-
             t->item = item;
             t->next = NULL;
 
@@ -83,11 +87,12 @@ public:
         }
     }
 
+    // Inserir em uma posição
     void push(int item, int pos)
     {
         if (pos < 0 || pos > this->n)
         {
-            cout << "Erro: posicao invalida.\n";
+            cout << "Erro: indice invalido.\n";
             return;
         }
 
@@ -101,19 +106,23 @@ public:
         }
         else
         {
-            Node *t = new Node();
+            // Neste caso existem pelo menos 2 elementos na lista
+            // e não estou inserindo nem no início nem no fim
+            Node *nn = new Node();
+            nn->item = item;
 
-            t->item = item;
+            // Posicionar um temporário na posição anterior
+            Node *t1 = this->getNode(pos - 1);
+            Node *t2 = t1->next;
 
-            Node *anterior = this->getNode(pos - 1);
-
-            t->next = anterior->next;
-            anterior->next = t;
+            t1->next = nn;
+            nn->next = t2;
 
             this->n++;
         }
     }
 
+    // Remover do início
     int popFront()
     {
         if (this->isEmpty())
@@ -121,26 +130,30 @@ public:
             cout << "Erro: Lista vazia.\n";
             return -1;
         }
-
-        int item = this->head->item;
-
-        Node *t = this->head;
-
-        this->head = this->head->next;
-
-        delete t;
-
-        this->n--;
-
-        if (this->n == 0)
+        else
         {
-            this->head = NULL;
-            this->tail = NULL;
-        }
+            int item = this->head->item;
 
-        return item;
+            if (this->n == 1)
+            {
+                delete this->head;
+                this->head = NULL;
+                this->tail = NULL;
+            }
+            else
+            {
+                Node *t = this->head;
+                this->head = this->head->next;
+                delete t;
+            }
+
+            this->n--;
+
+            return item;
+        }
     }
 
+    // Remover do final
     int popBack()
     {
         if (this->isEmpty())
@@ -148,26 +161,28 @@ public:
             cout << "Erro: Lista vazia.\n";
             return -1;
         }
-
-        if (this->n == 1)
+        else if (this->n == 1)
         {
             return this->popFront();
         }
+        else
+        {
+            Node *t = this->getNode(this->n - 2);
 
-        Node *anterior = this->getNode(this->n - 2);
+            int item = this->tail->item;
 
-        int item = this->tail->item;
+            delete this->tail;
 
-        delete this->tail;
+            t->next = NULL;
+            this->tail = t;
 
-        anterior->next = NULL;
-        this->tail = anterior;
+            this->n--;
 
-        this->n--;
-
-        return item;
+            return item;
+        }
     }
 
+    // Remover de uma posição
     int pop(int pos)
     {
         if (this->isEmpty())
@@ -178,7 +193,7 @@ public:
 
         if (pos < 0 || pos >= this->n)
         {
-            cout << "Erro: posicao invalida.\n";
+            cout << "Erro: Posicao invalida.\n";
             return -1;
         }
 
@@ -186,71 +201,87 @@ public:
         {
             return this->popFront();
         }
-
-        if (pos == this->n - 1)
+        else if (pos == this->n - 1)
         {
             return this->popBack();
         }
+        else
+        {
+            // t1 aponta para a posição anterior
+            Node *t1 = this->getNode(pos - 1);
 
-        Node *anterior = this->getNode(pos - 1);
-        Node *remover = anterior->next;
+            // t2 aponta para a posição que será removida
+            Node *t2 = t1->next;
 
-        int item = remover->item;
+            int item = t2->item;
 
-        anterior->next = remover->next;
+            t1->next = t2->next;
 
-        delete remover;
+            delete t2;
 
-        this->n--;
+            this->n--;
 
-        return item;
+            return item;
+        }
     }
 
+    // Retorna o item do início
     int getFront()
     {
         if (this->isEmpty())
         {
-            cout << "Erro: Lista vazia.\n";
+            cout << "Erro: A lista esta vazia.\n";
             return -1;
         }
-
-        return this->head->item;
+        else
+        {
+            return this->head->item;
+        }
     }
 
+    // Retorna o item do final
     int getBack()
     {
         if (this->isEmpty())
         {
-            cout << "Erro: Lista vazia.\n";
+            cout << "Erro: A lista esta vazia.\n";
             return -1;
         }
-
-        return this->tail->item;
+        else
+        {
+            return this->tail->item;
+        }
     }
 
+    // Retorna o item de uma posição
     int get(int pos)
     {
         if (pos < 0 || pos >= this->n)
         {
-            cout << "Erro: posicao invalida.\n";
+            cout << "Erro: Posicao invalida.\n";
             return -1;
         }
+        else
+        {
+            Node *t = this->getNode(pos);
 
-        Node *t = this->getNode(pos);
-
-        return t->item;
+            return t->item;
+        }
     }
 
+    // Tamanho da lista
     int size()
     {
         return this->n;
     }
 
+    // Verifica se está vazia
     bool isEmpty()
     {
         return this->n == 0;
     }
 
+    // Apaga todos os elementos da lista
     void clear()
     {
         while (!this->isEmpty())
@@ -259,37 +290,37 @@ public:
         }
     }
 
+    // Mostra todos os elementos da lista
     void show()
     {
         if (this->isEmpty())
         {
-            cout << "Lista vazia.\n";
+            cout << "Lista vazia." << endl;
             return;
         }
 
-        int pos = 0;
-        Node *t = this->head;
+        int n = 0;
 
-        while (t != NULL)
+        for (Node *t = this->head; t != NULL; t = t->next)
         {
-            cout << "Posicao " << pos << ": " << t->item << endl;
-
-            t = t->next;
-            pos++;
+            cout << t->item << " Item na Posicao " << n << endl;
+            n++;
         }
+
+        cout << endl;
     }
 };
 
 int main()
 {
-    List L;
+    List L; // Inicia o objeto
 
     int opcao;
     int item;
     int pos;
 
     do
-    {
+    { // Mantem a lista em looping até o usuário decidir encerrar.
         cout << "\n===== MENU =====\n";
         cout << "1 - Inserir elemento no inicio\n";
         cout << "2 - Inserir elemento no final\n";
@@ -307,7 +338,7 @@ int main()
         cout << "0 - Sair\n";
 
         cout << "Escolha uma opcao: ";
-        cin >> opcao;
+        cin >> opcao;  
 
         switch (opcao)
         {
@@ -345,7 +376,6 @@ int main()
             {
                 L.popFront();
             }
-
             break;
 
         case 5:
@@ -358,7 +388,6 @@ int main()
             {
                 L.popBack();
             }
-
             break;
 
         case 6:
@@ -374,7 +403,6 @@ int main()
             {
                 L.pop(pos);
             }
-
             break;
 
         case 7:
@@ -386,7 +414,6 @@ int main()
             {
                 L.getFront();
             }
-
             break;
 
         case 8:
@@ -398,7 +425,6 @@ int main()
             {
                 L.getBack();
             }
-
             break;
 
         case 9:
@@ -413,7 +439,6 @@ int main()
             {
                 L.get(pos);
             }
-
             break;
 
         case 10:
@@ -429,7 +454,6 @@ int main()
             {
                 cout << "A lista nao esta vazia.\n";
             }
-
             break;
 
         case 12:
@@ -446,11 +470,11 @@ int main()
             break;
 
         default:
-            cout << "Opcao invalida.\n";
+            cout << "Opcao invalida.\n";   //Caso o usuário escolha uma opcao que nao exista retorna opcao invalida.
         }
-        system("pause");
-        system("cls");
-    } while (opcao != 0);
 
+    } while (opcao != 0);
+    system("pause"); 
+    system("cls");   //Limpa o terminal apos cada operação.
     return 0;
 }
