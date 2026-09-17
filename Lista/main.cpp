@@ -338,7 +338,7 @@ int main()
         cout << "0 - Sair\n";
 
         cout << "Escolha uma opcao: ";
-        cin >> opcao;  
+        cin >> opcao;
 
         switch (opcao)
         {
@@ -470,11 +470,11 @@ int main()
             break;
 
         default:
-            cout << "Opcao invalida.\n";   //Caso o usuário escolha uma opcao que nao exista retorna opcao invalida.
+            cout << "Opcao invalida.\n"; // Caso o usuário escolha uma opcao que nao exista retorna opcao invalida.
         }
-
+        system("pause");
+        system("cls"); // Limpa o terminal apos cada operação.
     } while (opcao != 0);
-    system("pause"); 
-    system("cls");   //Limpa o terminal apos cada operação.
+
     return 0;
 }
