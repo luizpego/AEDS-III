@@ -304,22 +304,27 @@ public:
     // Mostra todos os elementos da lista
     void show()
     {
-        cout << "\nList -->";
-        Node *t;
-        t = this->head;
-        while (t != NULL)
+        if (this->isEmpty())
+            cout << "A lista esta vazia\n";
+        else
         {
-            cout << t->item << " ";
-            t = t->next;
+            cout << "\nList -->";
+            Node *t;
+            t = this->head;
+            while (t != NULL)
+            {
+                cout << t->item << " ";
+                t = t->next;
+            }
+            cout << "\nList -->";
+            t = this->tail;
+            while (t != NULL)
+            {
+                cout << t->item << " ";
+                t = t->prev;
+            }
+            cout << "\n = " << this->n;
         }
-        cout << "\nList -->";
-        t = this->tail;
-        while (t != NULL)
-        {
-            cout << t->item << " ";
-            t = t->prev;
-        }
-        cout << "\n = " << this->n;
     }
 
     // Atribui um valor a elemento da lista
@@ -339,4 +344,173 @@ public:
 
 int main()
 {
+<<<<<<< HEAD
+    {
+        List L; // Inicia o objeto
+
+        int opcao;
+        int item;
+        int pos;
+
+        do
+        { // Mantem a lista em looping até o usuário decidir encerrar.
+            cout << "\n===== MENU =====\n";
+            cout << "1 - Inserir elemento no inicio\n";
+            cout << "2 - Inserir elemento no final\n";
+            cout << "3 - Inserir elemento em uma posicao\n";
+            cout << "4 - Remover elemento do inicio\n";
+            cout << "5 - Remover elemento do final\n";
+            cout << "6 - Remover elemento de uma posicao\n";
+            cout << "7 - Consultar elemento do inicio\n";
+            cout << "8 - Consultar elemento do final\n";
+            cout << "9 - Consultar elemento de uma posicao\n";
+            cout << "10 - Obter tamanho da lista\n";
+            cout << "11 - Verificar se a lista esta vazia\n";
+            cout << "12 - Mostrar lista\n";
+            cout << "13 - Remover todos os elementos\n";
+            cout << "0 - Sair\n";
+
+            cout << "Escolha uma opcao: ";
+            cin >> opcao;
+
+            switch (opcao)
+            {
+            case 1:
+                cout << "Digite o valor: ";
+                cin >> item;
+
+                L.pushFront(item);
+                break;
+
+            case 2:
+                cout << "Digite o valor: ";
+                cin >> item;
+
+                L.pushBack(item);
+                break;
+
+            case 3:
+                cout << "Digite o valor: ";
+                cin >> item;
+
+                cout << "Digite a posicao: ";
+                cin >> pos;
+
+                L.pushAt(item, pos);
+                break;
+
+            case 4:
+                if (!L.isEmpty())
+                {
+                    item = L.popFront();
+                    cout << "Valor removido: " << item << endl;
+                }
+                else
+                {
+                    L.popFront();
+                }
+                break;
+
+            case 5:
+                if (!L.isEmpty())
+                {
+                    item = L.popBack();
+                    cout << "Valor removido: " << item << endl;
+                }
+                else
+                {
+                    L.popBack();
+                }
+                break;
+
+            case 6:
+                cout << "Digite a posicao: ";
+                cin >> pos;
+
+                if (pos >= 0 && pos < L.size())
+                {
+                    item = L.pop(pos);
+                    cout << "Valor removido: " << item << endl;
+                }
+                else
+                {
+                    L.pop(pos);
+                }
+                break;
+
+            case 7:
+                if (!L.isEmpty())
+                {
+                    cout << "Primeiro elemento: " << L.getFront() << endl;
+                }
+                else
+                {
+                    L.getFront();
+                }
+                break;
+
+            case 8:
+                if (!L.isEmpty())
+                {
+                    cout << "Ultimo elemento: " << L.getBack() << endl;
+                }
+                else
+                {
+                    L.getBack();
+                }
+                break;
+
+            case 9:
+                cout << "Digite a posicao: ";
+                cin >> pos;
+
+                if (pos >= 0 && pos < L.size())
+                {
+                    cout << "Elemento: " << L.get(pos) << endl;
+                }
+                else
+                {
+                    L.get(pos);
+                }
+                break;
+
+            case 10:
+                cout << "Tamanho da lista: " << L.size() << endl;
+                break;
+
+            case 11:
+                if (L.isEmpty())
+                {
+                    cout << "A lista esta vazia.\n";
+                }
+                else
+                {
+                    cout << "A lista nao esta vazia.\n";
+                }
+                break;
+
+            case 12:
+                L.show();
+                break;
+
+            case 13:
+                L.clear();
+                cout << "Todos os elementos foram removidos.\n";
+                break;
+
+            case 0:
+                cout << "Programa encerrado.\n";
+                break;
+
+            default:
+                cout << "Opcao invalida.\n"; // Caso o usuário escolha uma opcao que nao exista retorna opcao invalida.
+            }
+            system("pause");
+            system("cls"); // Limpa o terminal apos cada operação.
+        } while (opcao != 0);
+
+        return 0;
+    }
+=======
+>>>>>>> 78bec82e8af8e533e68d3fa1d9cb38156db9fb95
 }
