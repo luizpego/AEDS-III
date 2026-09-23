@@ -107,13 +107,13 @@ public:
     // Insrir em uma posi��o
     void pushAt(int item, int pos)
     {
-        if (pos < 0 || pos > n - 1) // Não permite a insercao de elementos em posicoes invalidas
+        if (pos < 0 || pos > n) // Não permite a insercao de elementos em posicoes invalidas
         {
             cout << "Erro:Posicao invalida\n";
         }
         else
         {
-            if (pos == n - 1)
+            if (pos == n)
             {
                 this->pushBack(item);
             }
@@ -126,8 +126,8 @@ public:
 
                 Node *t = new Node(); // Cria uma nova caixinha
                 t->item = item;
-                Node *aux = this->getNode(pos - 1);    // Pega a posicao desejada
-                Node *nn = this->getNode(pos - 2); // Pega a posicao anterior
+                Node *aux = this->getNode(pos);    // Pega a posicao desejada
+                Node *nn = this->getNode(pos - 1); // Pega a posicao anterior
                 t->next = aux;
                 t->prev = nn;
                 aux->prev = t;
@@ -207,6 +207,7 @@ public:
         if (pos < 0 || pos > n - 1) // Não permite a insercao de elementos em posicoes invalidas
         {
             cout << "Erro:Posicao invalida\n";
+            return -1;
         }
         else
         {
@@ -271,6 +272,7 @@ public:
         else if(pos < 0 || pos > this->n - 1)
         {
             cout<<"Posicao invalida\n";
+            return -1;
         }
         else
         {
@@ -375,30 +377,50 @@ int main()
             cout << "0 - Sair\n";
 
             cout << "Escolha uma opcao: ";
-            cin >> opcao;
+            if (!(cin >> opcao))
+            {
+                cout << "Entrada invalida ou encerrada.\n";
+                return 0;
+            }
 
             switch (opcao)
             {
             case 1:
                 cout << "Digite o valor: ";
-                cin >> item;
+                if (!(cin >> item))
+                {
+                    cout << "Entrada invalida ou encerrada.\n";
+                    return 0;
+                }
 
                 L.pushFront(item);
                 break;
 
             case 2:
                 cout << "Digite o valor: ";
-                cin >> item;
+                if (!(cin >> item))
+                {
+                    cout << "Entrada invalida ou encerrada.\n";
+                    return 0;
+                }
 
                 L.pushBack(item);
                 break;
 
             case 3:
                 cout << "Digite o valor: ";
-                cin >> item;
+                if (!(cin >> item))
+                {
+                    cout << "Entrada invalida ou encerrada.\n";
+                    return 0;
+                }
 
                 cout << "Digite a posicao: ";
-                cin >> pos;
+                if (!(cin >> pos))
+                {
+                    cout << "Entrada invalida ou encerrada.\n";
+                    return 0;
+                }
 
                 L.pushAt(item, pos);
                 break;
@@ -429,7 +451,11 @@ int main()
 
             case 6:
                 cout << "Digite a posicao: ";
-                cin >> pos;
+                if (!(cin >> pos))
+                {
+                    cout << "Entrada invalida ou encerrada.\n";
+                    return 0;
+                }
 
                 if (pos >= 0 && pos < L.size())
                 {
@@ -466,7 +492,11 @@ int main()
 
             case 9:
                 cout << "Digite a posicao: ";
-                cin >> pos;
+                if (!(cin >> pos))
+                {
+                    cout << "Entrada invalida ou encerrada.\n";
+                    return 0;
+                }
 
                 if (pos >= 0 && pos < L.size())
                 {
