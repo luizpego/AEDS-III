@@ -20,29 +20,29 @@ private:
     // Fun��o usada para obter um n� da lista
     Node *getNode(int pos)
     {
-        Node *t;
         int i = 0;
         if (pos > (n / 2)) // Se a posicao escolhida estiver depois da metade o método começa pela tail ao invés do head
         {
-            i = n; // i = n pois prefiro que lista começa com o indice 1.
+            i = n - 1;
             Node *t = this->tail;
             while (i != pos)
             {
                 t = t->prev;
                 i--;
             }
+            return t;
         }
         else
         {
-            i = 1; // Faz com que a lista comece pelo indice 1
+            i = 0;
             Node *t = this->head;
             while (i != pos)
             {
                 t = t->next;
                 i++;
             }
+            return t;
         }
-        return t;
     }
 
 public:
@@ -107,14 +107,13 @@ public:
     // Insrir em uma posi��o
     void pushAt(int item, int pos)
     {
-        if (pos < 0 || pos > n) // Não permite a insercao de elementos em posicoes invalidas
+        if (pos < 0 || pos > n - 1) // Não permite a insercao de elementos em posicoes invalidas
         {
             cout << "Erro:Posicao invalida\n";
-            return;
         }
         else
         {
-            if (pos == n)
+            if (pos == n - 1)
             {
                 this->pushBack(item);
             }
@@ -127,10 +126,8 @@ public:
 
                 Node *t = new Node(); // Cria uma nova caixinha
                 t->item = item;
-                t->prev = NULL;
-                t->next = NULL;
-                Node *aux = this->getNode(pos);    // Pega a posicao desejada
-                Node *nn = this->getNode(pos - 1); // Pega a posicao anterior
+                Node *aux = this->getNode(pos - 1);    // Pega a posicao desejada
+                Node *nn = this->getNode(pos - 2); // Pega a posicao anterior
                 t->next = aux;
                 t->prev = nn;
                 aux->prev = t;
@@ -148,7 +145,7 @@ public:
             cout << "Erro:A lista esta vazia\n";
             return -1;
         }
-        else if (this->n == 1)
+        else if (this->n == 1)  //Quando ha apenas um elemento
         {
             int item = 0;
             Node *t = this->head;
@@ -180,7 +177,7 @@ public:
             cout << "Erro:A lista esta vazia\n";
             return -1;
         }
-        else if (this->n == 1) // Quando a lista so tem 1 elemento
+        else if (this->n == 1) // Se houver apenas 1 elemento
         {
             int item = 0;
             Node *t = this->head;
@@ -207,13 +204,13 @@ public:
     // Remover de uma posi��o
     int pop(int pos)
     {
-        if (pos < 0 || pos > n) // Não permite a insercao de elementos em posicoes invalidas
+        if (pos < 0 || pos > n - 1) // Não permite a insercao de elementos em posicoes invalidas
         {
             cout << "Erro:Posicao invalida\n";
         }
         else
         {
-            if (pos == n)
+            if (pos == n - 1)
             {
                 return this->popBack();
             }
@@ -270,6 +267,10 @@ public:
         {
             cout << "A lista esta vazia\n";
             return -1;
+        }
+        else if(pos < 0 || pos > this->n - 1)
+        {
+            cout<<"Posicao invalida\n";
         }
         else
         {
@@ -330,9 +331,13 @@ public:
     // Atribui um valor a elemento da lista
     void set(int item, int pos)
     {
-        if (isEmpty())
+        if (this->isEmpty())
         {
             cout << "Erro: a lista esta vazia\n";
+        }
+        else if(pos < 0 || pos > this->n - 1)
+        {
+            cout<<"Posição invalida\n";
         }
         else
         {
@@ -340,11 +345,10 @@ public:
             t->item = item;
         }
     }
-}; 
+};
 
 int main()
 {
-<<<<<<< HEAD
     {
         List L; // Inicia o objeto
 
@@ -511,6 +515,4 @@ int main()
 
         return 0;
     }
-=======
->>>>>>> 78bec82e8af8e533e68d3fa1d9cb38156db9fb95
 }
