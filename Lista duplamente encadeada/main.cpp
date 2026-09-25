@@ -17,10 +17,10 @@ private:
     Node *tail;
     int n;
 
-    // Fun��o usada para obter um n� da lista
+    // Funcao usada para obter um n� da lista
     Node *getNode(int pos)
     {
-        int i = 0;
+        int i = 0;         //Metodo de obter no mais eficiente que o anterior e com menor custo operacional
         if (pos > (n / 2)) // Se a posicao escolhida estiver depois da metade o método começa pela tail ao invés do head
         {
             i = n - 1;
@@ -54,13 +54,13 @@ public:
         this->n = 0;
     }
 
-    // Detrutor
+    // Detrutor limpa a memoria quando o programa é encerrado
     ~List()
     {
         this->clear();
     }
 
-    // Inserir no in�cio
+    // Inserir no inicio
     void pushFront(int item)
     {
         Node *t = new Node();
@@ -104,11 +104,11 @@ public:
         this->n++;
     }
 
-    // Insrir em uma posi��o
+    // Inserir em uma posicao
     void pushAt(int item, int pos)
     {
         if (pos < 0 || pos > n) // Não permite a insercao de elementos em posicoes invalidas
-        {
+        {                       
             cout << "Erro:Posicao invalida\n";
         }
         else
@@ -201,7 +201,7 @@ public:
         }
     }
 
-    // Remover de uma posi��o
+    // Remover de uma posicao
     int pop(int pos)
     {
         if (pos < 0 || pos > n - 1) // Não permite a insercao de elementos em posicoes invalidas
@@ -314,14 +314,14 @@ public:
             cout << "\nList -->";
             Node *t;
             t = this->head;
-            while (t != NULL)
+            while (t != NULL)       //Mostra os elementos da lista da esquerda para a direita
             {
                 cout << t->item << " ";
                 t = t->next;
             }
             cout << "\nList -->";
             t = this->tail;
-            while (t != NULL)
+            while (t != NULL)       //Mostra os elementos da lista da direita para a esquerda
             {
                 cout << t->item << " ";
                 t = t->prev;
@@ -354,7 +354,7 @@ int main()
     {
         List L; // Inicia o objeto
 
-        int opcao;
+        int opcao = 1;  //Inicia em 1 para o condição do do while nao ser verdadeira e nao encerrar o main antes mesmo dele comecar
         int item;
         int pos;
 
@@ -533,7 +533,7 @@ int main()
                 break;
 
             case 0:
-                cout << "Programa encerrado.\n";
+                cout << "Programa encerrado.\n";        //Quando o usuario escolhe a opcao 0, ou seja, encerra o programa, a mensagem "Programa encerrado" é retornada
                 break;
 
             default:
