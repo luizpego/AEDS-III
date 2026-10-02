@@ -3,50 +3,57 @@
 
 using namespace std;
 
-struct Contato {
+struct Contato
+{
     int codigo;
     char nome[50];
     char telefone[20];
 };
 
-class Agenda {
+class Agenda
+{
 private:
     Contato contatos[100];
     int quantidade;
 
 public:
-    Agenda() {
+    Agenda()
+    {
         quantidade = 0;
     }
 
-    void carregarDados(char *nomeArquivo) {
+    void carregarDados(char *nomeArquivo)
+    {
         ifstream fin;
-        fin.open ( nomeArquivo, ios::binary );
+        fin.open(nomeArquivo, ios::binary);
 
-        if (!fin){
+        if (!fin)
+        {
             cout << "Erro ao tentar abrir o arquivo.\n";
             return;
         }
 
-        //Mais fácil
-        fin.read (  (char *)this , sizeof(Agenda)  );
+        // Mais fï¿½cil
+        fin.read((char *)this, sizeof(Agenda));
 
         fin.close();
     }
 
-    void salvarDados (char *nomeArquivo) {
+    void salvarDados(char *nomeArquivo)
+    {
         ofstream fout;
-        fout.open ( nomeArquivo, ios::binary );
+        fout.open(nomeArquivo, ios::binary);
 
-        if (!fout){
+        if (!fout)
+        {
             cout << "Erro ao tentar criar o arquivo.\n";
             return;
         }
 
-        //Mais fácil
-        fout.write (  (char *)this , sizeof(Agenda)  );
+        // Mais fï¿½cil
+        fout.write((char *)this, sizeof(Agenda));
 
-        //Mais código
+        // Mais cï¿½digo
         /*
         fout.write (  (char *)&this->quantidade , sizeof(int) );
         for (int i = 0; i < this->quantidade; i++){
@@ -57,13 +64,14 @@ public:
         fout.close();
     }
 
-
-    void salvarHTML (char *nomeArquivo){
+    void salvarHTML(char *nomeArquivo)
+    {
         ofstream fout;
 
-        fout.open (nomeArquivo);
+        fout.open(nomeArquivo);
 
-        if (!fout){
+        if (!fout)
+        {
             cout << "Erro ao criar arquivo HTML.";
             return;
         }
@@ -84,6 +92,31 @@ public:
 
         fout << "<h1> Lista de Contatos </h1>";
 
+    
+            for (int i = 0; i < quantidade; i++)
+            {
+                fout << "<h1>";
+                fout << "Cliente: " << i + 1;
+                fout << "</h1>";
+
+                fout << "<h2>";
+
+                fout << "<p>";
+                fout << "Codigo: " << contatos[i].codigo;
+                fout << "</p>";
+
+                fout << "<p>";
+                fout << "Nome: " << contatos[i].nome;
+                fout << "</p>";
+
+                fout << "<p>";
+                fout << "Telefone: " << contatos[i].telefone;
+                fout << "</p>";
+
+                fout << "</h2>";
+            }
+        
+
         fout << "</body>";
 
         fout << "</html>";
@@ -91,9 +124,10 @@ public:
         fout.close();
     }
 
-
-    void inserir() {
-        if (quantidade >= 100) {
+    void inserir()
+    {
+        if (quantidade >= 100)
+        {
             cout << "Limite de 100 contatos atingido!\n";
             return;
         }
@@ -113,21 +147,25 @@ public:
         cout << "\nContato inserido com sucesso!\n";
     }
 
-    void alterar() {
+    void alterar()
+    {
         int codigo;
         int posicao = -1;
 
         cout << "Digite o codigo do contato: ";
         cin >> codigo;
 
-        for (int i = 0; i < quantidade; i++) {
-            if (contatos[i].codigo == codigo) {
+        for (int i = 0; i < quantidade; i++)
+        {
+            if (contatos[i].codigo == codigo)
+            {
                 posicao = i;
                 break;
             }
         }
 
-        if (posicao == -1) {
+        if (posicao == -1)
+        {
             cout << "\nContato nao encontrado!\n";
             return;
         }
@@ -141,26 +179,31 @@ public:
         cout << "\nContato alterado com sucesso!\n";
     }
 
-    void excluir() {
+    void excluir()
+    {
         int codigo;
         int posicao = -1;
 
         cout << "Digite o codigo do contato: ";
         cin >> codigo;
 
-        for (int i = 0; i < quantidade; i++) {
-            if (contatos[i].codigo == codigo) {
+        for (int i = 0; i < quantidade; i++)
+        {
+            if (contatos[i].codigo == codigo)
+            {
                 posicao = i;
                 break;
             }
         }
 
-        if (posicao == -1) {
+        if (posicao == -1)
+        {
             cout << "\nContato nao encontrado!\n";
             return;
         }
 
-        for (int i = posicao; i < quantidade - 1; i++) {
+        for (int i = posicao; i < quantidade - 1; i++)
+        {
             contatos[i] = contatos[i + 1];
         }
 
@@ -169,15 +212,18 @@ public:
         cout << "\nContato excluido com sucesso!\n";
     }
 
-    void mostrarTodos() {
-        if (quantidade == 0) {
+    void mostrarTodos()
+    {
+        if (quantidade == 0)
+        {
             cout << "Nenhum contato cadastrado!\n";
             return;
         }
 
         cout << "===== CONTATOS =====\n\n";
 
-        for (int i = 0; i < quantidade; i++) {
+        for (int i = 0; i < quantidade; i++)
+        {
             cout << "Codigo: " << contatos[i].codigo << endl;
             cout << "Nome: " << contatos[i].nome << endl;
             cout << "Telefone: " << contatos[i].telefone << endl;
@@ -185,10 +231,12 @@ public:
         }
     }
 
-    void loop () {
+    void loop()
+    {
         int opcao;
 
-        do {
+        do
+        {
             system("cls");
 
             cout << "=============================\n";
@@ -206,37 +254,39 @@ public:
 
             system("cls");
 
-            switch (opcao) {
-                case 1:
-                    inserir();
-                    break;
+            switch (opcao)
+            {
+            case 1:
+                inserir();
+                break;
 
-                case 2:
-                    alterar();
-                    break;
+            case 2:
+                alterar();
+                break;
 
-                case 3:
-                    excluir();
-                    break;
+            case 3:
+                excluir();
+                break;
 
-                case 4:
-                    mostrarTodos();
-                    break;
+            case 4:
+                mostrarTodos();
+                break;
 
-                case 5:
-                    salvarHTML("contatos.html");
-                    system ("contatos.html");
-                    break;
+            case 5:
+                salvarHTML("contatos.html");
+                system("contatos.html");
+                break;
 
-                case 0:
-                    cout << "Programa encerrado.\n";
-                    break;
+            case 0:
+                cout << "Programa encerrado.\n";
+                break;
 
-                default:
-                    cout << "Opcao invalida!\n";
+            default:
+                cout << "Opcao invalida!\n";
             }
 
-            if (opcao != 0) {
+            if (opcao != 0)
+            {
                 system("pause");
             }
 
@@ -244,8 +294,8 @@ public:
     }
 };
 
-int main() {
-
+int main()
+{
 
     Agenda agenda;
 
