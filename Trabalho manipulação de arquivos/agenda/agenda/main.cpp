@@ -89,12 +89,20 @@ public:
         fout << "</head>";
 
         fout << "<body>";
-
+        
+        if(quantidade == 0)
+        {
+        fout<<"<h1>A agenda de contatos esta vazia</h1><br>";
+        }
+        else
+        {
         fout << "<h1> Lista de Contatos </h1>";
+        }
 
     
             for (int i = 0; i < quantidade; i++)
             {
+
                 fout << "<h1>";
                 fout << "Cliente: " << i + 1;
                 fout << "</h1>";
